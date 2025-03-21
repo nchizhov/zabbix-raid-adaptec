@@ -56,7 +56,7 @@
      UserParameter=raid.adaptec.pd[*],/opt/adaptec/device-info.py "$1" pd "$2" "$3"
      ```
 - For Zabbix Agent 2:
-  1. Copy repository file ```Linux\adaptec.conf``` to Zabbix Agent 2: ```zabbix_agent2.d\plugins.d```
+  1. Copy repository file ```Linux/adaptec.conf``` to Zabbix Agent 2: ```zabbix_agent2.d/plugins.d```
 
 ## Zabbix Server
 1. Import template ```adaptec_template.xml``` from repository to Zabbix Server Templates
