@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2025-03-18T11:56:56Z</date>
+    <groups>
+        <group>
+            <uuid>cf91513c6fc64ceba4b63a6647238d6d</uuid>
+            <name>RAID</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>5cdee3921da84c64bcb7c24363fe7aab</uuid>
+            <template>adaptec_raid</template>
+            <name>RAID: Adaptec</name>
+            <description>Adaptec RAID</description>
+            <groups>
+                <group>
+                    <name>RAID</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>130b3e9b71ef430a8d9567e83c02d452</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} BBU Capacity</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Capacity remaining]</key>
+                    <delay>2m</delay>
+                    <history>31d</history>
+                    <units>%</units>
+                    <description>Controller Battery Backup Unit Capacity remaining (if exists)</description>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>^(\d+) percent$</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>7a9be613c78b47e591451e5ace7b0b25</uuid>
+                            <expression>last(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Capacity remaining])&lt;5</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} battery capacity is less than 5% on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>48b95fe4d1fc48c9ade83c3a1b6681b7</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} BBU Over temperature</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Over temperature]</key>
+                    <delay>2m</delay>
+                    <history>365d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Battery Backup Unit Over temperature (if exists)</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>c4d7a085fc934de1bdb39defd00c3770</uuid>
+                            <expression>find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Over temperature],,&quot;like&quot;,&quot;No&quot;)=0</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} battery is over temperature on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>b94e381c62754497a47fc945383693c0</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} BBU Status</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Status]</key>
+                    <delay>2m</delay>
+                    <history>365d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Battery Backup Unit Status (if exists)</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>f52c0aa4f41643d6b1a87e45a3db21d9</uuid>
+                            <expression>find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Status],,&quot;like&quot;,&quot;Optimal&quot;)=0</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} battery status is not Optimal on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>b3ed0a7ee77b40a0b08147625f6f0fc2</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Model</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Model]</key>
+                    <delay>2h</delay>
+                    <history>31d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Model</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>aca210821f8b4f0d8118d9bbdf0cfb1c</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Serial Number</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Serial Number]</key>
+                    <delay>2h</delay>
+                    <history>31d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Serial Number</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>ee0557ac23294b42b67c4d8da75228c3</uuid>
+                            <expression>(last(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Serial Number],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Serial Number],#2))=1</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} serial number was changed on {HOST.NAME}</name>
+                            <priority>AVERAGE</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>214401489ffb4e8a8aa7fd1fb22fe434</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Status</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Status]</key>
+                    <delay>5m</delay>
+                    <history>365d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Status</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>56c9ddc5f9374453a0aa9f6cc8202644</uuid>
+                            <expression>find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Status],,&quot;like&quot;,&quot;Optimal&quot;)=0</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} status is not Optimal on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>cbf5fc67fbdd44e48e10cd15988b6f81</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Firmware</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Version Information.Firmware]</key>
+                    <delay>2h</delay>
+                    <history>365d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Firmware Version</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>9f386c316232476a80d424490ecda3e4</uuid>
+                            <expression>(last(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Version Information.Firmware],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Version Information.Firmware],#2))=1</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} firmware was changed on {HOST.NAME}</name>
+                            <priority>AVERAGE</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>dc4beeef09aa48fb830cba3cb8ad6108</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} ZMM Status</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller ZMM Information.Status]</key>
+                    <delay>2h</delay>
+                    <history>365d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller ZMM Information Status (if exists)</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>dce4e0343c5b498098398c605c331ea2</uuid>
+                            <expression>find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller ZMM Information.Status],,&quot;like&quot;,&quot;ZMM Optimal&quot;)=0</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} ZMM status is not Optimal on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>db13b23a7a014f02bd0329014c277f60</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Installed memory</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Installed memory]</key>
+                    <delay>2h</delay>
+                    <history>31d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Installed memory</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>f2f14a9596e244ca8e3e4fc037d67115</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Temperature Raw</name>
+                    <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature]</key>
+                    <delay>2m</delay>
+                    <history>31d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Controller Temperature Raw</description>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>80257eca947047d2acf711ed262e781b</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Temperature Status</name>
+                    <type>CALCULATED</type>
+                    <key>raid.adapter.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature Status]</key>
+                    <delay>2m</delay>
+                    <history>365d</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <params>last(//raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature])</params>
+                    <description>Controller Temperature Status</description>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>^\d+ C\/ \d+ F \((.+)\)$</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>4fb9758512fd4553be4a2e931612823b</uuid>
+                            <expression>find(/adaptec_raid/raid.adapter.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature Status],,&quot;like&quot;,&quot;Normal&quot;)=0</expression>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} temperature is not Normal on {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>32724472e3774f9e863e8d7dc0d434d7</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Temperature</name>
+                    <type>CALCULATED</type>
+                    <key>raid.adapter.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature_C]</key>
+                    <delay>2m</delay>
+                    <history>31d</history>
+                    <units>C</units>
+                    <params>last(//raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature])</params>
+                    <description>Controller Temperature</description>
+                    <preprocessing>
+                        <step>
+                            <type>REGEX</type>
+                            <parameters>
+                                <parameter>^(\d+) C\/ \d+ F .+$</parameter>
+                                <parameter>\1</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>RAID Controller</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>2d11242b3994476a868cec0b6df4df27</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Devices Discovery</name>
+                    <key>raid.adaptec.discovery[{$ADAPTEC.CONTROLLER.INDEX},ld]</key>
+                    <delay>2h</delay>
+                    <lifetime>7d</lifetime>
+                    <description>Controller Logical Devices Discovery</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>16afc1ad79b24f109bfcb3b36d5d135a</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Failed stripes</name>
+                            <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Failed stripes]</key>
+                            <delay>2m</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Failed stripes</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Logical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>d3ce666f86f84f65b94130d031e6f412</uuid>
+                                    <expression>find(/adaptec_raid/raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Failed stripes],,&quot;like&quot;,&quot;No&quot;)=0</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) has failed stripes on {HOST.NAME}</name>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Logical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>82113c8b5d9d4496b271caaf324245d4</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Raid Level</name>
+                            <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},RAID level]</key>
+                            <delay>2h</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Status RAID Level</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Logical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>0a53426e1c3e477faee47141a8fc4288</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},RAID level],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},RAID level],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) RAID level has changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Logical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>b37c16ca6b624ccbb13cac9cb53f50d6</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Size</name>
+                            <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size]</key>
+                            <delay>2h</delay>
+                            <history>31d</history>
+                            <units>B</units>
+                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Size</description>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <parameters>
+                                        <parameter>^(\d+) MB$</parameter>
+                                        <parameter>\1</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Logical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>a8a3330e114a4e5bb4cc119e18f53748</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) size has changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Logical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>a8f32244b0204781ac01928a41a01a04</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Status</name>
+                            <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Status of logical device]</key>
+                            <delay>2m</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Status</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Logical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>6ec36797611740068d44fb2a51a8fc93</uuid>
+                                    <expression>find(/adaptec_raid/raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Status of logical device],,&quot;like&quot;,&quot;Optimal&quot;)=0</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) status is not Optimal on {HOST.NAME}</name>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Logical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>16e95deb4e114469bc3539ff279e81fa</uuid>
+                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Devices Discovery</name>
+                    <key>raid.adaptec.discovery[{$ADAPTEC.CONTROLLER.INDEX},pd]</key>
+                    <delay>2h</delay>
+                    <lifetime>7d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>d09603ab28cf471eba512b4d3bc6c5d0</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Firmware</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Firmware]</key>
+                            <delay>2h</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Firmware</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>322f6551aa024e34904d85f7831a2c9c</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Model</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Model]</key>
+                            <delay>2h</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Model</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>23256776b6a34c3e885166a314f0b7d4</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Model],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Model],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) model has changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>bc5877d2bfff41a491c11370efc65176</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) S.M.A.R.T. warnings</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},S.M.A.R.T. warnings]</key>
+                            <delay>2m</delay>
+                            <history>31d</history>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) S.M.A.R.T. warnings</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>f10339983b1a4492b11b5a9365fbd1a5</uuid>
+                                    <expression>last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},S.M.A.R.T. warnings],#1)&gt;0</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) S.M.A.R.T. warnings changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>921c490f6c024373890239873fddc84a</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Serial number</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Serial number]</key>
+                            <delay>2h</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Serial number</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>32cdfe307621499db6d46e68311cc32f</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Serial number],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Serial number],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) serial number has changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>92c3314a7eed4bcaae604eb81a419784</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Size</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size]</key>
+                            <delay>2h</delay>
+                            <history>31d</history>
+                            <units>B</units>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Size</description>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <parameters>
+                                        <parameter>^(\d+) MB$</parameter>
+                                        <parameter>\1</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>cf7a2c03b7d44d6b96e3cc2f23d02999</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) size has changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>655e1b0c97f341ef9b679cf8f72a72fb</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) SSD</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},SSD]</key>
+                            <delay>2h</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) SSD</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>4dad2362494f4d6d8d83602fa9e054b5</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) State</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},State]</key>
+                            <delay>2m</delay>
+                            <history>31d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) State</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>980e46a92a01445aa8f9a75982b601e3</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},State],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},State],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) state has changed on {HOST.NAME}</name>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>33d8b58da1f544ce9675d30637d5753c</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Total Size</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Total Size]</key>
+                            <delay>2h</delay>
+                            <history>31d</history>
+                            <units>B</units>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Total Size</description>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <parameters>
+                                        <parameter>^(\d+) MB$</parameter>
+                                        <parameter>\1</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>1024</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>d6f30a4939b144aea4afb05106f9a8a6</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Total Size],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Total Size],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) total size has changed on {HOST.NAME}</name>
+                                    <priority>AVERAGE</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>d7b1594473e24f068d5d3f74013b2672</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Transfer Speed</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Transfer Speed]</key>
+                            <delay>2h</delay>
+                            <history>31d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Transfer Speed</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>26f0bd6b41a04dc6abb63799137826da</uuid>
+                                    <expression>(last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Transfer Speed],#1)&lt;&gt;last(/adaptec_raid/raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Transfer Speed],#2))=1</expression>
+                                    <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) transfer speed has changed on {HOST.NAME}</name>
+                                    <priority>HIGH</priority>
+                                    <tags>
+                                        <tag>
+                                            <tag>Application</tag>
+                                            <value>RAID Physical Device</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>1caa8d5109c043409da69a9fbc8abac9</uuid>
+                            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Vendor</name>
+                            <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Vendor]</key>
+                            <delay>2h</delay>
+                            <history>365d</history>
+                            <trends>0</trends>
+                            <value_type>CHAR</value_type>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Pysical Disk {#DEVICEID} ({#DEVICENAME}) Vendor</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>RAID Physical Device</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$ADAPTEC.CONTROLLER.INDEX}</macro>
+                    <value>1</value>
+                    <description>Raid Controller Index</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <uuid>18e87e4c1fa64ecc84ca204c11f7ba97</uuid>
+            <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Temperature</name>
+            <show_triggers>NO</show_triggers>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <calc_fnc>ALL</calc_fnc>
+                    <item>
+                        <host>adaptec_raid</host>
+                        <key>raid.adapter.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature_C]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
