@@ -63,7 +63,7 @@ function Parse-Data {
     $current_section = $null
     $current_subsection = $null
     $current_index = $null
-    for ($idx = 0; $idx -lt $data.Length; $idx++) {
+    for ($idx = 0; $idx -lt $data.Count; $idx++) {
         if ($idx -lt 3) {
             continue
         }
@@ -97,7 +97,7 @@ function Parse-Data {
             continue
         }
         $s_line = $line -split ": ",2
-        if ($s_line.Length -eq 2) {
+        if ($s_line.Count -eq 2) {
             $field = $s_line[0].Trim()
             $field_val = $s_line[1].Trim()
             if ($null -eq $current_index) {

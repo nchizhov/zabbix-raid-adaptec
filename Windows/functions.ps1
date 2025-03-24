@@ -92,13 +92,13 @@ function Get-Info-Data {
         [string] $param
     )
     $s_param = $param.Split('.')
-    if ($s_param.Length -eq 1) {
+    if ($s_param.Count -eq 1) {
         if (Check-Info-Data -info $data -param $s_param[0]) {
             return $data[$s_param[0]]
         }
         return $null
     }
-    $s_param_length = $s_param.Length
+    $s_param_length = $s_param.Count
     $main_param = ''
     $last_idx = $null
     for ($idx = 0; $idx -lt $s_param_length; $idx++) {
