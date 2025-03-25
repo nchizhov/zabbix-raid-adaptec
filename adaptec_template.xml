@@ -242,7 +242,7 @@
                     <triggers>
                         <trigger>
                             <uuid>dce4e0343c5b498098398c605c331ea2</uuid>
-                            <expression>find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller ZMM Information.Status],,&quot;like&quot;,&quot;ZMM Optimal&quot;)=0</expression>
+                            <expression>(find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller ZMM Information.Status],,&quot;like&quot;,&quot;ZMM Optimal&quot;)=0) and (find(/adaptec_raid/raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller ZMM Information.Status],,&quot;like&quot;,&quot;ZMM not installed&quot;)=0)</expression>
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} ZMM status is not Optimal on {HOST.NAME}</name>
                             <priority>HIGH</priority>
                             <tags>
