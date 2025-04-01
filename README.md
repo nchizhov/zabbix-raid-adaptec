@@ -2,13 +2,13 @@
 
 ### Contains:
 - Scripts for Linux (Python 3) and Windows (PowerShell)
-- Template for Zabbix 6.XX, 7.XX
+- Template for Zabbix 7.XX
 
 ### Requirements:
 - Python 3.6 and higher for Linux
 - PowerShell 3.0 and higher for Windows
 - Zabbix agent - any version or Zabbix agent 2 - version 6
-- Zabbix version 6.XX and higher
+- Zabbix version 7.XX and higher
 
 ### Install support scripts
 #### Windows:
@@ -36,7 +36,7 @@
 
 ### Linux:
 1. Copy ```*.py``` files from ```Linux``` folder if repository to ```/opt/adaptec```
-2. Change in file ```get-info.py``` variable ```arcconf_path``` - path to arcconf for you Adaptec RAID Controller
+2. Change in file ```get-info.py``` variable ```arcconf_path``` - path to arcconf for your Adaptec RAID Controller
 3. Set ```*.py``` files as execution:
    ```bash
    chmod +x /opt/adaptec/*.py

@@ -63,19 +63,21 @@ function Get-Adapter-Info {
         [int] $index
     )
     $info_path = [System.IO.Path]::Combine($env:TEMP, [string]::Format('adaptec-{0}.json', $index))
-    if (-not (Test-Path $info_path -PathType Leaf)) {
-        return $null
-    }
     $retries = 0
+    $data = $null
     while ($retries -le 4) {
         $retries++
-        try {
-            $data = (Get-Content -Raw -Path $info_path | ConvertFrom-Json | ConvertPSObjectToHashtable)
-        } catch {
-            $data = $null
+        if (-not (Test-Path $info_path -PathType Leaf -ErrorAction SilentlyContinue)) {
             Start-Sleep -Seconds 1
+            continue
         }
-        if ($null -eq $data) {
+        try {
+            $data = (Get-Content -Raw -Path $info_path -ErrorAction Stop | ConvertFrom-Json | ConvertPSObjectToHashtable)
+        } catch {
+            Start-Sleep -Seconds 1
+            continue
+        }
+        if ($null -ne $data) {
             break
         }
     }
