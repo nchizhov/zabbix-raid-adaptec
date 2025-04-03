@@ -67,7 +67,12 @@ function Get-Adapter-Info {
     $data = $null
     while ($retries -le 4) {
         $retries++
-        if (-not (Test-Path $info_path -PathType Leaf -ErrorAction SilentlyContinue)) {
+        try {
+            if (-not (Test-Path $info_path -PathType Leaf -ErrorAction SilentlyContinue)) {
+                Start-Sleep -Seconds 1
+                continue
+            }
+        } catch {
             Start-Sleep -Seconds 1
             continue
         }
