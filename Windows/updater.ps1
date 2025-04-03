@@ -14,6 +14,8 @@
 $update_url = "https://api.github.com/repos/nchizhov/zabbix-raid-adaptec/contents/Windows/{0}?ref=master"
 $update_files = @("device-info.ps1", "discovery.ps1", "functions.ps1", "get-info.ps1", "info.ps1")
 
+[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+
 function Get-Server-File-Info {
     [OutputType([System.Management.Automation.PSCustomObject], $null)]
     [CmdletBinding(PositionalBinding=$false)]
