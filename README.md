@@ -66,7 +66,7 @@
 ### Linux
 1. Open console
 2. Change current dir to ```/opt/adaptec```
-3. Run python script ```python3 undater.py```
+3. Run python script ```python3 updater.py```
 
 ## Zabbix Server
 1. Import template ```adaptec_template.xml``` from repository to Zabbix Server Templates
