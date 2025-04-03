@@ -7,6 +7,7 @@ import os
 import tempfile
 from subprocess import PIPE, DEVNULL, Popen
 from typing import Optional, List
+from config import arcconf_path
 
 """
 Description: Get Information From Adaptec RAID Controller.
@@ -17,7 +18,6 @@ Author: Chizhov Nikolay
 E-Mail: nchizhov@inok.ru
 """
 
-arcconf_path = '/opt/adaptec/arcconf'
 title_split = '----------------------------------------------------------------------'
 subtitle_split = '--------------------------------------------------------'
 logical_device_re = re.compile('^Logical device number (\d+)$')

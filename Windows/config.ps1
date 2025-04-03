@@ -1,0 +1,1 @@
+$arcconf_path = 'C:\Scripts\RAID\arcconf.exe'

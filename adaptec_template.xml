@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>7.0</version>
-    <date>2025-03-18T11:56:56Z</date>
-    <groups>
-        <group>
+    <template_groups>
+        <template_group>
             <uuid>cf91513c6fc64ceba4b63a6647238d6d</uuid>
             <name>RAID</name>
-        </group>
-    </groups>
+        </template_group>
+    </template_groups>
     <templates>
         <template>
             <uuid>5cdee3921da84c64bcb7c24363fe7aab</uuid>
             <template>adaptec_raid</template>
             <name>RAID: Adaptec</name>
-            <description>Adaptec RAID</description>
+            <description>Adaptec RAID
+===================
+
+Author: Chizhov Nikolay
+Repository: https://github.com/nchizhov/zabbix-raid-adaptec</description>
             <groups>
                 <group>
                     <name>RAID</name>
@@ -25,7 +28,6 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} BBU Capacity</name>
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Capacity remaining]</key>
                     <delay>2m</delay>
-                    <history>31d</history>
                     <units>%</units>
                     <description>Controller Battery Backup Unit Capacity remaining (if exists)</description>
                     <preprocessing>
@@ -64,8 +66,8 @@
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Over temperature]</key>
                     <delay>2m</delay>
                     <history>365d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Battery Backup Unit Over temperature (if exists)</description>
                     <tags>
                         <tag>
@@ -94,8 +96,8 @@
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Battery Information.Status]</key>
                     <delay>2m</delay>
                     <history>365d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Battery Backup Unit Status (if exists)</description>
                     <tags>
                         <tag>
@@ -123,9 +125,8 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Model</name>
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Model]</key>
                     <delay>2h</delay>
-                    <history>31d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Model</description>
                     <tags>
                         <tag>
@@ -139,9 +140,8 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Serial Number</name>
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Serial Number]</key>
                     <delay>2h</delay>
-                    <history>31d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Serial Number</description>
                     <tags>
                         <tag>
@@ -170,8 +170,8 @@
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Status]</key>
                     <delay>5m</delay>
                     <history>365d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Status</description>
                     <tags>
                         <tag>
@@ -200,8 +200,8 @@
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller Version Information.Firmware]</key>
                     <delay>2h</delay>
                     <history>365d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Firmware Version</description>
                     <tags>
                         <tag>
@@ -230,8 +230,8 @@
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Controller ZMM Information.Status]</key>
                     <delay>2h</delay>
                     <history>365d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller ZMM Information Status (if exists)</description>
                     <tags>
                         <tag>
@@ -259,9 +259,8 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Installed memory</name>
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Installed memory]</key>
                     <delay>2h</delay>
-                    <history>31d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Installed memory</description>
                     <tags>
                         <tag>
@@ -275,9 +274,8 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Temperature Raw</name>
                     <key>raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature]</key>
                     <delay>2m</delay>
-                    <history>31d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <description>Controller Temperature Raw</description>
                     <tags>
                         <tag>
@@ -293,8 +291,8 @@
                     <key>raid.adapter.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature Status]</key>
                     <delay>2m</delay>
                     <history>365d</history>
-                    <trends>0</trends>
                     <value_type>CHAR</value_type>
+                    <trends>0</trends>
                     <params>last(//raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature])</params>
                     <description>Controller Temperature Status</description>
                     <preprocessing>
@@ -333,7 +331,6 @@
                     <type>CALCULATED</type>
                     <key>raid.adapter.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature_C]</key>
                     <delay>2m</delay>
-                    <history>31d</history>
                     <units>C</units>
                     <params>last(//raid.adaptec.info[{$ADAPTEC.CONTROLLER.INDEX},Temperature])</params>
                     <description>Controller Temperature</description>
@@ -360,8 +357,8 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Devices Discovery</name>
                     <key>raid.adaptec.discovery[{$ADAPTEC.CONTROLLER.INDEX},ld]</key>
                     <delay>2h</delay>
-                    <lifetime>7d</lifetime>
-                    <description>Controller Logical Devices Discovery</description>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Devices Discovery</description>
                     <item_prototypes>
                         <item_prototype>
                             <uuid>16afc1ad79b24f109bfcb3b36d5d135a</uuid>
@@ -369,9 +366,9 @@
                             <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Failed stripes]</key>
                             <delay>2m</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Failed stripes</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Failed stripes</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -399,9 +396,9 @@
                             <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},RAID level]</key>
                             <delay>2h</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Status RAID Level</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Status RAID Level</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -428,9 +425,8 @@
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Size</name>
                             <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size]</key>
                             <delay>2h</delay>
-                            <history>31d</history>
                             <units>B</units>
-                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Size</description>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Size</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -479,9 +475,9 @@
                             <key>raid.adaptec.ld[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Status of logical device]</key>
                             <delay>2m</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Logical Disk {#DEVICEID} ({#DEVICENAME}) Status</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Logical Disk {#DEVICEID} ({#DEVICENAME}) Status</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -510,7 +506,8 @@
                     <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Devices Discovery</name>
                     <key>raid.adaptec.discovery[{$ADAPTEC.CONTROLLER.INDEX},pd]</key>
                     <delay>2h</delay>
-                    <lifetime>7d</lifetime>
+                    <enabled_lifetime_type>DISABLE_NEVER</enabled_lifetime_type>
+                    <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Device Discovery</description>
                     <item_prototypes>
                         <item_prototype>
                             <uuid>d09603ab28cf471eba512b4d3bc6c5d0</uuid>
@@ -518,9 +515,9 @@
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Firmware]</key>
                             <delay>2h</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Firmware</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Firmware</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -534,8 +531,8 @@
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Model]</key>
                             <delay>2h</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
+                            <trends>0</trends>
                             <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Model</description>
                             <tags>
                                 <tag>
@@ -563,8 +560,7 @@
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) S.M.A.R.T. warnings</name>
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},S.M.A.R.T. warnings]</key>
                             <delay>2m</delay>
-                            <history>31d</history>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) S.M.A.R.T. warnings</description>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) S.M.A.R.T. warnings</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -592,9 +588,9 @@
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Serial number]</key>
                             <delay>2h</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Serial number</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Serial number</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -621,9 +617,8 @@
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Size</name>
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Size]</key>
                             <delay>2h</delay>
-                            <history>31d</history>
                             <units>B</units>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Size</description>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Size</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -672,9 +667,9 @@
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},SSD]</key>
                             <delay>2h</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) SSD</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) SSD</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -687,10 +682,9 @@
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) State</name>
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},State]</key>
                             <delay>2m</delay>
-                            <history>31d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) State</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) State</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -717,9 +711,8 @@
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Total Size</name>
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Total Size]</key>
                             <delay>2h</delay>
-                            <history>31d</history>
                             <units>B</units>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Total Size</description>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Total Size</description>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -767,10 +760,9 @@
                             <name>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Transfer Speed</name>
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Transfer Speed]</key>
                             <delay>2h</delay>
-                            <history>31d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Controller Physical Disk {#DEVICEID} ({#DEVICENAME}) Transfer Speed</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Transfer Speed</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -798,9 +790,9 @@
                             <key>raid.adaptec.pd[{$ADAPTEC.CONTROLLER.INDEX},{#DEVICEID},Vendor]</key>
                             <delay>2h</delay>
                             <history>365d</history>
-                            <trends>0</trends>
                             <value_type>CHAR</value_type>
-                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Pysical Disk {#DEVICEID} ({#DEVICENAME}) Vendor</description>
+                            <trends>0</trends>
+                            <description>Adaptec Controller #{$ADAPTEC.CONTROLLER.INDEX} Physical Disk {#DEVICEID} ({#DEVICENAME}) Vendor</description>
                             <tags>
                                 <tag>
                                     <tag>Application</tag>
@@ -811,6 +803,12 @@
                     </item_prototypes>
                 </discovery_rule>
             </discovery_rules>
+            <tags>
+                <tag>
+                    <tag>Application</tag>
+                    <value>RAID Controller</value>
+                </tag>
+            </tags>
             <macros>
                 <macro>
                     <macro>{$ADAPTEC.CONTROLLER.INDEX}</macro>

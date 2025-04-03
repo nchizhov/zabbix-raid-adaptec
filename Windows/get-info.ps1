@@ -23,7 +23,10 @@ param(
     [int] $index
 )
 
-$arcconf_path = 'C:\Scripts\RAID\arcconf.exe'
+Set-Location $PSScriptRoot
+
+. .\config.ps1
+
 $title_split = '----------------------------------------------------------------------'
 $subtitle_split = '--------------------------------------------------------'
 $logical_device_re = "^Logical device number (\d+)$"

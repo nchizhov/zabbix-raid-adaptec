@@ -13,7 +13,7 @@
 ### Install support scripts
 #### Windows:
 1. Copy ```.ps1``` files from ```Windows``` folder of repository to ```C:\Scripts\RAID```
-2. Change in file ```get-info.ps1``` variable ```$arcconf_path``` - path to arcconf.exe for your Adaptec RAID Controller 
+2. Change in file ```config.ps1``` variable ```$arcconf_path``` - path to arcconf.exe for your Adaptec RAID Controller 
 3. Import to Windows Scheduler repository file ```Windows\Scheduler.xml```:
    1. Open created task in Windows Scheduler
    2. Open tab ```Actions```
@@ -36,7 +36,7 @@
 
 ### Linux:
 1. Copy ```*.py``` files from ```Linux``` folder if repository to ```/opt/adaptec```
-2. Change in file ```get-info.py``` variable ```arcconf_path``` - path to arcconf for your Adaptec RAID Controller
+2. Change in file ```config.py``` variable ```arcconf_path``` - path to arcconf for your Adaptec RAID Controller
 3. Set ```*.py``` files as execution:
    ```bash
    chmod +x /opt/adaptec/*.py
@@ -57,6 +57,16 @@
      ```
 - For Zabbix Agent 2:
   1. Copy repository file ```Linux/adaptec.conf``` to Zabbix Agent 2: ```zabbix_agent2.d/plugins.d```
+
+## Updates
+### Windows
+1. Open PowerShell console
+2. Change current dir to ```C:\Scripts\RAID```
+3. Run PowerShell script ```updater.ps1```
+### Linux
+1. Open console
+2. Change current dir to ```/opt/adaptec```
+3. Run python script ```python3 undater.py```
 
 ## Zabbix Server
 1. Import template ```adaptec_template.xml``` from repository to Zabbix Server Templates
