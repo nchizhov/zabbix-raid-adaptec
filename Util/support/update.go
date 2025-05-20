@@ -24,7 +24,7 @@ type ReleaseInfo struct {
 	MD5  string
 }
 
-func (releaseInfo ReleaseInfo) fillReleaseInfo(data []byte, prefix string) error {
+func (releaseInfo *ReleaseInfo) fillReleaseInfo(data []byte, prefix string) error {
 	var dataInfo map[string]any
 	err := json.Unmarshal(data, &dataInfo)
 	if err != nil {
@@ -35,17 +35,18 @@ func (releaseInfo ReleaseInfo) fillReleaseInfo(data []byte, prefix string) error
 	if !ok {
 		return errors.New("assets in release not found")
 	}
-	err = releaseInfo.parseReleaseInfo(assets.([]map[string]any))
+	err = releaseInfo.parseReleaseInfo(assets.([]any))
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (releaseInfo ReleaseInfo) parseReleaseInfo(assetInfo []map[string]any) error {
+func (releaseInfo *ReleaseInfo) parseReleaseInfo(assetInfo []any) error {
 	hasMD5 := false
 	hasRelease := false
-	for _, asset := range assetInfo {
+	for _, baseAsset := range assetInfo {
+		asset := baseAsset.(map[string]any)
 		assetName := asset["name"].(string)
 		if !strings.HasPrefix(assetName, releaseInfo.Name) {
 			continue

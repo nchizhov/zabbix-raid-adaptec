@@ -33,5 +33,5 @@ func Update() {
 		elog.Info(fmt.Sprintf("Successfully updated: %s", releaseInfo.Name))
 	}
 	elog.Info("Finish check update")
-	os.Exit(1)
+	os.Exit(0)
 }
