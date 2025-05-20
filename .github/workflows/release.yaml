@@ -25,4 +25,5 @@ jobs:
           project_path: "Util"
           binary_name: "adapter"
           ldflags: "-s -w"
+          build_flags: "-gcflags=all=-l"
           compress_assets: "OFF"
