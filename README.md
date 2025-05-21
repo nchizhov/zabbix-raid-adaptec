@@ -1,20 +1,22 @@
 ## Zabbix Monitoring for Adaptec RAID Controllers
 
 ### Contains:
-- Scripts for Linux (Python 3) and Windows (PowerShell)
+- Utility for get adapter info, data for Zabbix, self-update 
 - Template for Zabbix 7.XX
 
 ### Requirements:
-- Python 3.6 and higher for Linux
-- PowerShell 3.0 and higher for Windows
 - Zabbix agent - any version or Zabbix agent 2 - version 6
 - Zabbix version 7.XX and higher
 
 ### Install support scripts
 #### Windows:
-1. Copy ```.ps1``` files from ```Windows``` folder of repository to ```C:\Scripts\RAID```
-2. Change in file ```config.ps1``` variable ```$arcconf_path``` - path to arcconf.exe for your Adaptec RAID Controller 
-3. Import to Windows Scheduler repository file ```Windows\Scheduler.xml```:
+1. Download latest release asset https://github.com/nchizhov/zabbix-raid-adaptec/releases/latest to folder ```C:\Scripts\RAID```:
+   - For ```x64```-arch postfix of filename is ```windows-amd64.exe```
+   - For ```x86```-arch postfix of filename is ```windows-386.exe```
+2. Rename downloaded file to ```adapter.exe```  
+3. Download ```config.json``` file from https://raw.githubusercontent.com/nchizhov/zabbix-raid-adaptec/refs/heads/master/config.json and save it to ```C:\Scripts\RAID```
+4. Change in file ```config.json``` value of ```arcconf_path``` to path to arcconf.exe for your Adaptec RAID Controller 
+5. Import to Windows Scheduler repository file ```Windows\Scheduler.xml```:
    1. Open created task in Windows Scheduler
    2. Open tab ```Actions```
    3. Change action - edit argument and set index of Adaptec Controller in Windows
@@ -24,10 +26,10 @@
   2. Change ```Timeout``` option to 30
   3. Insert to the end of config file:
      ```
-     UserParameter=raid.adaptec.info[*],powershell -NoProfile -File "C:\Scripts\RAID\info.ps1" "$1" "$2"
-     UserParameter=raid.adaptec.discovery[*],powershell -NoProfile -File "C:\Scripts\RAID\discovery.ps1" "$1" "$2"
-     UserParameter=raid.adaptec.ld[*],powershell -NoProfile -File "C:\Scripts\RAID\device-info.ps1" "$1" ld "$2" "$3"
-     UserParameter=raid.adaptec.pd[*],powershell -NoProfile -File "C:\Scripts\RAID\device-info.ps1" "$1" pd "$2" "$3"
+     UserParameter=raid.adaptec.info[*],"C:\Scripts\RAID\adapter.exe" -info -index $1 -field "$2"
+     UserParameter=raid.adaptec.discovery[*],"C:\Scripts\RAID\adapter.exe" -discovery -index $1 -$2
+     UserParameter=raid.adaptec.ld[*],"C:\Scripts\RAID\adapter.exe" -info -index $1 -ld -drive-index "$2" -field "$3"
+     UserParameter=raid.adaptec.pd[*],"C:\Scripts\RAID\adapter.exe" -info -index $1 -pd -drive-index "$2" -field "$3"
      ``` 
 - For Zabbix Agent 2:
   1. Copy repository file ```Windows\adaptec.conf``` to Zabbix Agent 2: ```zabbix_agent2.d\plugins.d```
@@ -35,25 +37,29 @@
   3. Change ```Timeout``` option to 30
 
 ### Linux:
-1. Copy ```*.py``` files from ```Linux``` folder if repository to ```/opt/adaptec```
-2. Change in file ```config.py``` variable ```arcconf_path``` - path to arcconf for your Adaptec RAID Controller
-3. Set ```*.py``` files as execution:
+1. Download latest release asset https://github.com/nchizhov/zabbix-raid-adaptec/releases/latest to folder ```/opt/adaptec```:
+    - For ```x64```-arch postfix of filename is ```linux-amd64```
+    - For ```x86```-arch postfix of filename is ```linux-386```
+2. Rename downloaded file to ```adapter```
+3. Set ```adapter``` file execution flag:
    ```bash
-   chmod +x /opt/adaptec/*.py
+   chmod +x /opt/adaptec/adapter 
    ```
-4. Add schedule to cron:
+4. Download ```config.json``` file from https://raw.githubusercontent.com/nchizhov/zabbix-raid-adaptec/refs/heads/master/config.json and save it to ```/opt/adaptec```
+5. Change in file ```config.json``` value of ```arcconf_path``` to path to arcconf.exe for your Adaptec RAID Controller
+6. Add schedule to cron:
    ```
-   */2 * * * * /opt/adaptec/get-info.py 1
+   */2 * * * * /opt/adaptec/adapter -get-info -index 1
    ```
    , where 1 - is index of Adaptec Controller in Linux
 - For Zabbix Agent:
   1. Open Zabbix Agent config file
   2. Insert to the end of config file:
      ```
-     UserParameter=raid.adaptec.info[*],/opt/adaptec/info.py "$1" "$2"
-     UserParameter=raid.adaptec.discovery[*],/opt/adaptec/discovery.py "$1" "$2"
-     UserParameter=raid.adaptec.ld[*],/opt/adaptec/device-info.py "$1" ld "$2" "$3"
-     UserParameter=raid.adaptec.pd[*],/opt/adaptec/device-info.py "$1" pd "$2" "$3"
+     UserParameter=raid.adaptec.info[*],/opt/adaptec/adapter -info -index $1 -field $2
+     UserParameter=raid.adaptec.discovery[*],/opt/adaptec/adapter -discovery -index $1 -$2
+     UserParameter=raid.adaptec.ld[*],/opt/adaptec/adapter -info -index $1 -ld -drive-index "$2" -field "$3"
+     UserParameter=raid.adaptec.pd[*],/opt/adaptec/adapter -info -index $1 -pd -drive-index "$2" -field "$3"
      ```
 - For Zabbix Agent 2:
   1. Copy repository file ```Linux/adaptec.conf``` to Zabbix Agent 2: ```zabbix_agent2.d/plugins.d```
@@ -62,11 +68,11 @@
 ### Windows
 1. Open PowerShell console
 2. Change current dir to ```C:\Scripts\RAID```
-3. Run PowerShell script ```updater.ps1```
+3. Run ```adapter.exe -update```
 ### Linux
 1. Open console
 2. Change current dir to ```/opt/adaptec```
-3. Run python script ```python3 updater.py```
+3. Run ```adapter -update```
 
 ## Zabbix Server
 1. Import template ```adaptec_template.xml``` from repository to Zabbix Server Templates

@@ -33,5 +33,6 @@ func Update() {
 		elog.Info(fmt.Sprintf("Successfully updated: %s", releaseInfo.Name))
 	}
 	elog.Info("Finish check update")
+	elog.Info("Don't forget to update zabbix template")
 	os.Exit(0)
 }
