@@ -97,7 +97,7 @@ func parseData(data []string) map[string]any {
 	return controllerData
 }
 
-func saveInfo(index int, data map[string]any) {
+func saveInfo(index uint, data map[string]any) {
 	infoPath := path.Join(os.TempDir(), fmt.Sprintf("adaptec-%d.json", index))
 	if support.FileExists(infoPath) {
 		err := os.Remove(infoPath)
@@ -129,6 +129,6 @@ func GetInfo(args support.ArgsList) {
 	data := strings.Split(aData, "\n")
 	controllerData := parseData(data)
 
-	saveInfo(1, controllerData)
+	saveInfo(args.Index, controllerData)
 	os.Exit(0)
 }
