@@ -46,7 +46,7 @@
    chmod +x /opt/adaptec/adapter 
    ```
 4. Download ```config.json``` file from https://raw.githubusercontent.com/nchizhov/zabbix-raid-adaptec/refs/heads/master/config.json and save it to ```/opt/adaptec```
-5. Change in file ```config.json``` value of ```arcconf_path``` to path to arcconf.exe for your Adaptec RAID Controller
+5. Change in file ```config.json``` value of ```arcconf_path``` to path to arcconf for your Adaptec RAID Controller
 6. Add schedule to cron:
    ```
    */2 * * * * /opt/adaptec/adapter -get-info -index 1
