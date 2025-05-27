@@ -56,7 +56,7 @@
   1. Open Zabbix Agent config file
   2. Insert to the end of config file:
      ```
-     UserParameter=raid.adaptec.info[*],/opt/adaptec/adapter -info -index $1 -field $2
+     UserParameter=raid.adaptec.info[*],/opt/adaptec/adapter -info -index $1 -field "$2"
      UserParameter=raid.adaptec.discovery[*],/opt/adaptec/adapter -discovery -index $1 -$2
      UserParameter=raid.adaptec.ld[*],/opt/adaptec/adapter -info -index $1 -ld -drive-index "$2" -field "$3"
      UserParameter=raid.adaptec.pd[*],/opt/adaptec/adapter -info -index $1 -pd -drive-index "$2" -field "$3"
